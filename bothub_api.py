@@ -145,7 +145,7 @@ def delete_all():
             index += 1
             print(f"%.2f%%" % ((index*100)/count))
 
-def delete_by_intent(intent):
+def delete_by_intent(intent, *args):
     count = get_examples_count(repository)
     results = get_all_examples(
         headers=headers,
@@ -155,7 +155,7 @@ def delete_by_intent(intent):
 
     for result in results:
         for item in result:
-            if item.get('intent') = intent: 
+            if item.get('intent') = intent:
                 time.sleep(1)
                 delete_example(item.get('id'))
                 index += 1
