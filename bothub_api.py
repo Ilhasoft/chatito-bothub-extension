@@ -145,6 +145,22 @@ def delete_all():
             index += 1
             print(f"%.2f%%" % ((index*100)/count))
 
+def delete_by_intent(intent):
+    count = get_examples_count(repository)
+    results = get_all_examples(
+        headers=headers,
+        next_call='{base_url}examples/',
+        params=params
+    )
+
+    for result in results:
+        for item in result:
+            if item.get('intent') = intent: 
+                time.sleep(1)
+                delete_example(item.get('id'))
+                index += 1
+                print(f"%.2f%%" % ((index*100)/count))
+
 def main():
     with open('data/rasa_dataset_training.json') as json_file:
         examples = json.load(json_file)['rasa_nlu_data']['common_examples']
