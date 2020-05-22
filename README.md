@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # chatito-bothub-extension <img src="https://push.al/wp-content/uploads/2020/02/avatar4.png" width="25">
 > An automated use of the [bothub API](https://api.bothub.it/) by python coding.
 
