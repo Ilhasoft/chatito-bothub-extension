@@ -4,13 +4,13 @@ import requests
 import sys
 import time
 
-repository = ''  # new
+repository = ""  # new
 repository_version = 0
 base_url = 'https://api.bothub.it/v2/repository/'
 
 params = {'repository_uuid': repository}
 headers = {
-    "Authorization": "Token ab245d24bfb052c7a73e34d17f9843e6346058c9",
+    "Authorization": "Token ...",
     "Content-Type": "application/json"
 }
 
