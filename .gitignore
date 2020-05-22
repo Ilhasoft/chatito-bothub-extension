@@ -121,5 +121,6 @@ dmypy.json
 
 # Virtualenv Files
 env
+.env
 
 # End of https://www.gitignore.io/api/python,visualstudiocode

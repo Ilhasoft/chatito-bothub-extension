@@ -1,11 +1,16 @@
-import os, sys
-import json, requests, time
+import json
+# import os
+import requests
+import sys
+import time
 
-repository = ''
-base_url = ''
+repository = ''  # new
+repository_version = 0
+base_url = 'https://api.bothub.it/v2/repository/'
+
 params = {'repository_uuid': repository}
 headers = {
-    "Authorization": "Token ",
+    "Authorization": "Token ab245d24bfb052c7a73e34d17f9843e6346058c9",
     "Content-Type": "application/json"
 }
 
@@ -16,11 +21,13 @@ def get_examples_count(repository_uuid, *args):
         headers=headers
     ).content).get('examples__count')
 
+
 def delete_repository(repository_uuid):
     return requests.delete(
         f'{base_url}repository-info/{repository_uuid}/',
         headers=headers
     )
+
 
 def get_all_examples(headers, next_call, params, *args):
     while next_call is not None:
@@ -28,6 +35,7 @@ def get_all_examples(headers, next_call, params, *args):
         response_json = response.json()
         next_call = response_json.get('next')
         yield response_json.get('results', None)
+
 
 def delete_example(example_id, *args):
     try:
@@ -37,8 +45,8 @@ def delete_example(example_id, *args):
         return response.status_code
     except err:
         print(err)
-        print(f'Failed to delete this sentence!\nText: {example.get('text')}')
-        return 
+        print(f'Failed to delete this sentence!\nText: {example.get("text")}')
+        return
 
 
 def create_example(example, *args):
@@ -64,8 +72,9 @@ def create_example(example, *args):
         return response.status_code
     except err:
         print(err)
-        print(f'Failed to train this sentence!\nText: {example.get('text')}')
+        print(f'Failed to train this sentence!\nText: {example.get("text")}')
         return
+
 
 def delete_evaluate_example(example_id):
     response = requests.delete(f'{base_url}evaluate/{example_id}/?repository_uuid={repository}', headers=headers)
@@ -73,10 +82,11 @@ def delete_evaluate_example(example_id):
         print("Example deleted!")
     return response.status_code
 
+
 def delete_all_examples(*args):
     results = get_all_examples(
         headers=headers,
-        next_call='{base_url}evaluate/',
+        next_call=f'{base_url}evaluate/',
         params=params
     )
 
@@ -86,23 +96,31 @@ def delete_all_examples(*args):
             response = delete_evaluate_example(item.get('id'))
             print(response)
 
+
 def create_evaluate_examples(*args):
-    with open('data/nlu_test.json') as json_file:
+    with open('rasa-dataset-testing.json') as json_file:
         examples = json.load(json_file)
+
+        count = len(examples)
         index = 0
-        for intent, texts in examples.items():
-            for text in texts:
-                data = {
-                    "repository": repository,
-                    "language": "pt_br",
-                    "entities": [],
-                    "text": text,
-                    "intent": intent
-                }
-                response = requests.post(f'{base_url}evaluate/', headers=headers, data=json.dumps(data))
-                print(response.status_code)
-                if response.status_code == 201:
-                    print("\nEvaluate example created!")
+
+        for example in examples:
+            data = {
+                "is_corrected": False,
+                "repository": repository,
+                "repository_version": int(repository_version),
+                "text": example['text'],
+                "language": example['language'],
+                "intent": example['intent'],
+                "entities": []
+            }
+
+            response = requests.post(f'{base_url}evaluate/', headers=headers, data=json.dumps(data))
+
+            if response.status_code == 201:
+                print("\nEvaluate example created!")
+            print(f"%.2f%%" % ((index*100)/count))
+
 
 def sentences_count(intent=None, *args):
     def count_intent(examples, intent):
@@ -129,11 +147,12 @@ def sentences_count(intent=None, *args):
                 intents.append(example['intent'])
         print(f'{total} - total')
 
+
 def delete_all():
     count = get_examples_count(repository)
     results = get_all_examples(
         headers=headers,
-        next_call='{base_url}examples/',
+        next_call=f'{base_url}examples/',
         params=params
     )
     index = 0
@@ -145,24 +164,28 @@ def delete_all():
             index += 1
             print(f"%.2f%%" % ((index*100)/count))
 
+
 def delete_by_intent(intent, *args):
     count = get_examples_count(repository)
+    index = 0
     results = get_all_examples(
         headers=headers,
-        next_call='{base_url}examples/',
+        next_call=f'{base_url}examples/',
         params=params
     )
 
     for result in results:
         for item in result:
-            if item.get('intent') = intent:
+            if item.get('intent') == intent:
                 time.sleep(1)
                 delete_example(item.get('id'))
                 index += 1
                 print(f"%.2f%%" % ((index*100)/count))
 
+
+# Função para treinar as frases a partir de um json gerado pelo Chatito GSL
 def main():
-    with open('data/rasa_dataset_training.json') as json_file:
+    with open('rasa_dataset_training.json') as json_file:
         examples = json.load(json_file)['rasa_nlu_data']['common_examples']
         count = len(examples)
         index = 0
@@ -185,24 +208,6 @@ def main():
             create_example(result)
             index += 1
             print(f"%.2f%%" % ((index*100)/count))
-
-# Save results in a JSON file
-# with open('format_examples.json', 'w') as outfile:
-#     json.dump(results, outfile)
-
-# Send this file to Bothub in a Post request
-# response = requests.post(
-#     f'{base_url}example/upload_examples/',
-#     headers={
-#         'Authorization': "Token ab245d24bfb052c7a73e34d17f9843e6346058c9",
-#     },
-#     data={
-#         'repository': repository,
-#     },
-#     files={'file': open('bothub_format_examples.json', 'rb')}
-# )
-
-# print(response.status_code)
 
 if __name__ == '__main__':
     args = sys.argv
