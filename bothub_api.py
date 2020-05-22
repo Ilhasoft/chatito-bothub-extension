@@ -5,7 +5,7 @@ import sys
 import time
 
 repository = ""  # new
-repository_version = 0
+repository_version = ''
 base_url = 'https://api.bothub.it/v2/repository/'
 
 params = {'repository_uuid': repository}
@@ -17,14 +17,14 @@ headers = {
 
 def get_examples_count(repository_uuid, *args):
     return json.loads(requests.get(
-        f'{base_url}repository-info/{repository_uuid}',
+        f'{base_url}info/{repository_uuid}/{repository_version}/',
         headers=headers
     ).content).get('examples__count')
 
 
 def delete_repository(repository_uuid):
     return requests.delete(
-        f'{base_url}repository-info/{repository_uuid}/',
+        f'{base_url}info/{repository_uuid}/{repository_version}/',
         headers=headers
     )
 
@@ -39,7 +39,7 @@ def get_all_examples(headers, next_call, params, *args):
 
 def delete_example(example_id, *args):
     try:
-        response = requests.delete(f'{base_url}example/{example_id}/', headers=headers)
+        response = requests.delete(f'{base_url}example/{example_id}', headers=headers)
         if response.status_code == 204:
             print("Example deleted!")
         return response.status_code
@@ -77,7 +77,7 @@ def create_example(example, *args):
 
 
 def delete_evaluate_example(example_id):
-    response = requests.delete(f'{base_url}evaluate/{example_id}/?repository_uuid={repository}', headers=headers)
+    response = requests.delete(f'{base_url}evaluate/{example_id}/?repository_uuid={repository}/{repository_version}/', headers=headers)
     if response.status_code == 204:
         print("Example deleted!")
     return response.status_code
@@ -98,7 +98,7 @@ def delete_all_examples(*args):
 
 
 def create_evaluate_examples(*args):
-    with open('rasa-dataset-testing.json') as json_file:
+    with open('examples/rasa-dataset-testing.json', encoding = "utf-8") as json_file:
         examples = json.load(json_file)
 
         count = len(examples)
@@ -130,7 +130,7 @@ def sentences_count(intent=None, *args):
                 count += 1
         return count
 
-    with open('data/rasa_dataset_training.json') as json_file:
+    with open('examples/rasa_dataset_training.json') as json_file:
         examples = json.load(json_file)['rasa_nlu_data']['common_examples']
         if intent:
             count = count_intent(examples, intent)
@@ -185,7 +185,7 @@ def delete_by_intent(intent, *args):
 
 # Função para treinar as frases a partir de um json gerado pelo Chatito GSL
 def main():
-    with open('rasa_dataset_training.json') as json_file:
+    with open('examples/rasa_dataset_training.json', encoding = "utf-8") as json_file:
         examples = json.load(json_file)['rasa_nlu_data']['common_examples']
         count = len(examples)
         index = 0
