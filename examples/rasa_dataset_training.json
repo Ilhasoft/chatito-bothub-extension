@@ -1,0 +1,616 @@
+{
+    "rasa_nlu_data": {
+        "regex_features": [],
+        "entity_synonyms": [],
+        "common_examples": [
+            {
+                "text": "saldo devedor",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "saldo total",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "saldo devedor total",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "saldo",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "saldo do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 17,
+                        "entity": "contrato",
+                        "start": 9,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "saldo total do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 23,
+                        "entity": "contrato",
+                        "start": 15,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "valor total",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "valor devido",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "valor do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 17,
+                        "entity": "contrato",
+                        "start": 9,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "divida",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "divida do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 18,
+                        "entity": "contrato",
+                        "start": 10,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "dívida",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "dívida do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 18,
+                        "entity": "contrato",
+                        "start": 10,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "dividas",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "dividas do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 19,
+                        "entity": "contrato",
+                        "start": 11,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "quanto devo?",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta pagar saldo devedor",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta abater saldo devedor",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta quitar saldo devedor",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta zerar saldo devedor",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta pagar saldo total",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta abater saldo total",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta quitar saldo total",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta zerar saldo total",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta pagar saldo devedor total",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta abater saldo devedor total",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta quitar saldo devedor total",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta zerar saldo devedor total",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta pagar saldo",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta abater saldo",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta quitar saldo",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta zerar saldo",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta pagar saldo do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 29,
+                        "entity": "contrato",
+                        "start": 21,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "falta abater saldo do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 30,
+                        "entity": "contrato",
+                        "start": 22,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "falta quitar saldo do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 30,
+                        "entity": "contrato",
+                        "start": 22,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "falta zerar saldo do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 29,
+                        "entity": "contrato",
+                        "start": 21,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "falta pagar saldo total do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 35,
+                        "entity": "contrato",
+                        "start": 27,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "falta abater saldo total do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 36,
+                        "entity": "contrato",
+                        "start": 28,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "falta quitar saldo total do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 36,
+                        "entity": "contrato",
+                        "start": 28,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "falta zerar saldo total do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 35,
+                        "entity": "contrato",
+                        "start": 27,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "falta pagar valor total",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta abater valor total",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta quitar valor total",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta zerar valor total",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta pagar valor devido",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta abater valor devido",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta quitar valor devido",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta zerar valor devido",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta pagar valor do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 29,
+                        "entity": "contrato",
+                        "start": 21,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "falta abater valor do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 30,
+                        "entity": "contrato",
+                        "start": 22,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "falta quitar valor do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 30,
+                        "entity": "contrato",
+                        "start": 22,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "falta zerar valor do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 29,
+                        "entity": "contrato",
+                        "start": 21,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "falta pagar divida",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta abater divida",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta quitar divida",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta zerar divida",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta pagar divida do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 30,
+                        "entity": "contrato",
+                        "start": 22,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "falta abater divida do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 31,
+                        "entity": "contrato",
+                        "start": 23,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "falta quitar divida do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 31,
+                        "entity": "contrato",
+                        "start": 23,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "falta zerar divida do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 30,
+                        "entity": "contrato",
+                        "start": 22,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "falta pagar dívida",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta abater dívida",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta quitar dívida",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta zerar dívida",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta pagar dívida do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 30,
+                        "entity": "contrato",
+                        "start": 22,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "falta abater dívida do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 31,
+                        "entity": "contrato",
+                        "start": 23,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "falta quitar dívida do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 31,
+                        "entity": "contrato",
+                        "start": 23,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "falta zerar dívida do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 30,
+                        "entity": "contrato",
+                        "start": 22,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "falta pagar dividas",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta abater dividas",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta quitar dividas",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta zerar dividas",
+                "intent": "saldo_devedor",
+                "entities": []
+            },
+            {
+                "text": "falta pagar dividas do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 31,
+                        "entity": "contrato",
+                        "start": 23,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "falta abater dividas do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 32,
+                        "entity": "contrato",
+                        "start": 24,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "falta quitar dividas do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 32,
+                        "entity": "contrato",
+                        "start": 24,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "falta zerar dividas do contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 31,
+                        "entity": "contrato",
+                        "start": 23,
+                        "value": "contrato"
+                    }
+                ]
+            },
+            {
+                "text": "do contrato contrato",
+                "intent": "saldo_devedor",
+                "entities": [
+                    {
+                        "end": 11,
+                        "entity": "contrato",
+                        "start": 3,
+                        "value": "contrato"
+                    },
+                    {
+                        "end": 20,
+                        "entity": "contrato",
+                        "start": 12,
+                        "value": "contrato"
+                    }
+                ]
+            }
+        ]
+    }
+}
