@@ -39,13 +39,14 @@ def get_all_examples(headers, next_call, params, *args):
 
 def delete_example(example_id, *args):
     try:
-        response = requests.delete(f'{base_url}example/{example_id}', headers=headers)
+        response = requests.delete(
+            f'{base_url}example/{example_id}', headers=headers)
         if response.status_code == 204:
             print("Example deleted!")
         return response.status_code
-    except err:
-        print(err)
-        print(f'Failed to delete this sentence!\nText: {example.get("text")}')
+    except Exception as error:
+        print(error)
+        print(f'Failed to delete this sentence!\nID: {example_id}')
         return
 
 
@@ -67,17 +68,19 @@ def create_example(example, *args):
         "entities": entities
     }
     try:
-        response = requests.post(f'{base_url}example/', headers=headers, data=json.dumps(data))
+        response = requests.post(
+            f'{base_url}example/', headers=headers, data=json.dumps(data))
         print("Example created!")
         return response.status_code
-    except err:
-        print(err)
+    except Exception as error:
+        print(error)
         print(f'Failed to train this sentence!\nText: {example.get("text")}')
         return
 
 
 def delete_evaluate_example(example_id):
-    response = requests.delete(f'{base_url}evaluate/{example_id}/?repository_uuid={repository}/{repository_version}/', headers=headers)
+    response = requests.delete(
+        f'{base_url}evaluate/{example_id}/?repository_uuid={repository}/{repository_version}/', headers=headers)
     if response.status_code == 204:
         print("Example deleted!")
     return response.status_code
@@ -98,7 +101,7 @@ def delete_all_examples(*args):
 
 
 def create_evaluate_examples(*args):
-    with open('examples/rasa-dataset-testing.json', encoding = "utf-8") as json_file:
+    with open('examples/rasa-dataset-testing.json', encoding="utf-8") as json_file:
         examples = json.load(json_file)
 
         count = len(examples)
@@ -115,7 +118,8 @@ def create_evaluate_examples(*args):
                 "entities": []
             }
 
-            response = requests.post(f'{base_url}evaluate/', headers=headers, data=json.dumps(data))
+            response = requests.post(
+                f'{base_url}evaluate/', headers=headers, data=json.dumps(data))
 
             if response.status_code == 201:
                 print("\nEvaluate example created!")
@@ -183,9 +187,25 @@ def delete_by_intent(intent, *args):
                 print(f"%.2f%%" % ((index*100)/count))
 
 
+def export_to_json():
+    # Getting all sentences from bothub repository
+    results = get_all_examples(
+        headers=headers,
+        next_call=f'{base_url}examples/',
+        params=params
+    )
+    examples = []
+    for result in results:
+        for sentence in result:
+            examples.append(sentence)
+    # Save results in a JSON file
+    with open('sentences.json', 'w') as outfile:
+        json.dump(examples, outfile)
+
+
 # Função para treinar as frases a partir de um json gerado pelo Chatito GSL
 def main():
-    with open('examples/rasa_dataset_training.json', encoding = "utf-8") as json_file:
+    with open('examples/rasa_dataset_training.json', encoding="utf-8") as json_file:
         examples = json.load(json_file)['rasa_nlu_data']['common_examples']
         count = len(examples)
         index = 0
@@ -209,12 +229,13 @@ def main():
             index += 1
             print(f"%.2f%%" % ((index*100)/count))
 
+
 if __name__ == '__main__':
     args = sys.argv
     if len(args) > 1:
         try:
             func = eval(f'{args[1]}')
-        except:
+        except Exception:
             print("function doesn't exists!")
         else:
             func(*args[2:])
