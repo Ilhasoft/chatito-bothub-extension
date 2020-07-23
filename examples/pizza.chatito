@@ -1,4 +1,4 @@
-%[pedir_pizza]('training': '100')
+%[pizza]('training': '100')
     ~[frase_inicial] @[sabor]
 
 ~[frase_inicial]
