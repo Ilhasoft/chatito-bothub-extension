@@ -1,30 +1,30 @@
 import json
-# import os
-import requests
 import sys
 import time
 
-repository = ""  # new
-repository_version = ''
-base_url = 'https://api.bothub.it/v2/repository/'
+import requests
+from decouple import config
 
+repository = config('REPOSITORY_UUID')
+repository_version = config('REPOSITORY_VERSION_ID')
+base_url = config('BOTHUB_API_URL')
 params = {'repository_uuid': repository}
 headers = {
-    "Authorization": "Token ...",
-    "Content-Type": "application/json"
+    'Authorization': f'Token {config("ACCOUNT_API_TOKEN")}',
+    'Content-Type': 'application/json'
 }
 
 
 def get_examples_count(repository_uuid, *args):
     return json.loads(requests.get(
-        f'{base_url}info/{repository_uuid}/{repository_version}/',
+        f'{base_url}/repository/info/{repository_uuid}/{repository_version}/',
         headers=headers
     ).content).get('examples__count')
 
 
-def delete_repository(repository_uuid):
+def delete_repository(repository_uuid, *args):
     return requests.delete(
-        f'{base_url}info/{repository_uuid}/{repository_version}/',
+        f'{base_url}/repository/info/{repository_uuid}/{repository_version}/',
         headers=headers
     )
 
@@ -40,7 +40,7 @@ def get_all_examples(headers, next_call, params, *args):
 def delete_example(example_id, *args):
     try:
         response = requests.delete(
-            f'{base_url}example/{example_id}', headers=headers)
+            f'{base_url}/repository/example/{example_id}', headers=headers)
         if response.status_code == 204:
             print("Example deleted!")
         return response.status_code
@@ -63,13 +63,14 @@ def create_example(example, *args):
 
     data = {
         "repository": repository,
+        "repository_version": repository_version,
         "text": example.get('text'),
         "intent": example.get('intent'),
         "entities": entities
     }
     try:
         response = requests.post(
-            f'{base_url}example/', headers=headers, data=json.dumps(data))
+            f'{base_url}/repository/example/', headers=headers, data=json.dumps(data))
         print("Example created!")
         return response.status_code
     except Exception as error:
@@ -78,9 +79,9 @@ def create_example(example, *args):
         return
 
 
-def delete_evaluate_example(example_id):
+def delete_evaluate_example(example_id, *args):
     response = requests.delete(
-        f'{base_url}evaluate/{example_id}/?repository_uuid={repository}/{repository_version}/', headers=headers)
+        f'{base_url}/repository/evaluate/{example_id}/?repository_uuid={repository}/{repository_version}/', headers=headers)
     if response.status_code == 204:
         print("Example deleted!")
     return response.status_code
@@ -89,7 +90,7 @@ def delete_evaluate_example(example_id):
 def delete_all_examples(*args):
     results = get_all_examples(
         headers=headers,
-        next_call=f'{base_url}evaluate/',
+        next_call=f'{base_url}/repository/evaluate/',
         params=params
     )
 
@@ -119,7 +120,7 @@ def create_evaluate_examples(*args):
             }
 
             response = requests.post(
-                f'{base_url}evaluate/', headers=headers, data=json.dumps(data))
+                f'{base_url}/repository/evaluate/', headers=headers, data=json.dumps(data))
 
             if response.status_code == 201:
                 print("\nEvaluate example created!")
@@ -152,11 +153,11 @@ def sentences_count(intent=None, *args):
         print(f'{total} - total')
 
 
-def delete_all():
+def delete_all(*args):
     count = get_examples_count(repository)
     results = get_all_examples(
         headers=headers,
-        next_call=f'{base_url}examples/',
+        next_call=f'{base_url}/repository/examples/',
         params=params
     )
     index = 0
@@ -174,7 +175,7 @@ def delete_by_intent(intent, *args):
     index = 0
     results = get_all_examples(
         headers=headers,
-        next_call=f'{base_url}examples/',
+        next_call=f'{base_url}/repository/examples/',
         params=params
     )
 
@@ -187,47 +188,8 @@ def delete_by_intent(intent, *args):
                 print(f"%.2f%%" % ((index*100)/count))
 
 
-def export_to_json():
-    # Getting all sentences from bothub repository
-    results = get_all_examples(
-        headers=headers,
-        next_call=f'{base_url}examples/',
-        params=params
-    )
-    examples = []
-    for result in results:
-        for sentence in result:
-            examples.append(sentence)
-    # Save results in a JSON file
-    with open('sentences.json', 'w') as outfile:
-        json.dump(examples, outfile)
-
-
-# Função para treinar as frases a partir de um json gerado pelo Chatito GSL
 def main():
-    with open('examples/rasa_dataset_training.json', encoding="utf-8") as json_file:
-        examples = json.load(json_file)['rasa_nlu_data']['common_examples']
-        count = len(examples)
-        index = 0
-
-        for example in examples:
-            entities = []
-            for entity in example['entities']:
-                entities.append({
-                    "entity": entity['entity'],
-                    "start": entity['start'],
-                    "end": entity['end']
-                })
-
-            result = {
-                "text": example['text'],
-                "language": "pt-br",
-                "intent": example['intent'],
-                "entities": entities
-            }
-            create_example(result)
-            index += 1
-            print(f"%.2f%%" % ((index*100)/count))
+    print('welcome to Chatito-Bothub-Extension!')
 
 
 if __name__ == '__main__':

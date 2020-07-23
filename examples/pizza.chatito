@@ -1,0 +1,17 @@
+%[pedir_pizza]('training': '100')
+    ~[frase_inicial] @[sabor]
+
+~[frase_inicial]
+    quero ~[pedir] uma pizza de
+    me dê uma de
+    quero de
+    vou querer uma pizza de
+
+~[pedir]
+    pedir
+    solicitar
+
+@[sabor]
+    calebresa
+    4 queijos
+    marguerita
