@@ -65,6 +65,7 @@ def create_example(example, *args):
         "repository": repository,
         "repository_version": repository_version,
         "text": example.get('text'),
+        "language": example.get('language'),
         "intent": example.get('intent'),
         "entities": entities
     }
@@ -101,14 +102,21 @@ def delete_all_examples(*args):
             print(response)
 
 
-def create_evaluate_examples(*args):
-    with open('examples/rasa-dataset-testing.json', encoding="utf-8") as json_file:
+def create_evaluate_examples(filename, *args):
+    with open(f'{filename}.json', encoding="utf-8") as json_file:
         examples = json.load(json_file)
 
         count = len(examples)
         index = 0
 
         for example in examples:
+            entities = []
+            for entity in example['entities']:
+                entities.append({
+                    "entity": entity['entity'],
+                    "start": entity['start'],
+                    "end": entity['end']
+                })
             data = {
                 "is_corrected": False,
                 "repository": repository,
@@ -116,7 +124,7 @@ def create_evaluate_examples(*args):
                 "text": example['text'],
                 "language": example['language'],
                 "intent": example['intent'],
-                "entities": []
+                "entities": entities
             }
 
             response = requests.post(
