@@ -4,7 +4,7 @@ import time
 
 from decouple import config
 
-from bothub_api import get_all_examples, create_example, delete_example, get_examples_count
+from bothub_api import get_all_examples, create_example, delete_example, get_examples_count, create_evaluate_examples
 
 repository = config('REPOSITORY_UUID')
 repository_version = config('REPOSITORY_VERSION_ID')
@@ -41,6 +41,21 @@ def export_to_json(filename, *args):
     results = get_all_examples(
         headers=headers,
         next_call=f'{base_url}/repository/examples/',
+        params=params
+    )
+    examples = []
+    for result in results:
+        for sentence in result:
+            examples.append(sentence)
+    # Save results in a JSON file
+    with open(f'{filename}.json', 'w') as outfile:
+        json.dump(examples, outfile)
+
+def export_evaluate_to_json(filename, *args):
+    # Getting all evaluate sentences from a bothub repository
+    results = get_all_examples(
+        headers=headers,
+        next_call=f'{base_url}/repository/evaluate/',
         params=params
     )
     examples = []
@@ -97,7 +112,7 @@ def train_chatito(filename, *args):
 
             result = {
                 "text": example['text'],
-                "language": "pt-br",
+                "language": "pt_br",
                 "intent": example['intent'],
                 "entities": entities
             }
